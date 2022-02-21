@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,11 +21,10 @@ public class ParkingSpotModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(nullable = false, unique = true, length = 10)
     private String parkingSpotNumber;
-
 
     @Column(nullable = false)
     private LocalDateTime registerDate;
@@ -38,9 +38,12 @@ public class ParkingSpotModel implements Serializable {
     @Column(nullable = false, length = 30)
     private String block;
 
+
     @OneToOne
-    @JoinColumn(name = "spot_id")
-    private CarModel carModel;
+    @JoinColumn(name = "modelcar_id")
+    private ModelCar modelCar;
+
+
 
 
 }
