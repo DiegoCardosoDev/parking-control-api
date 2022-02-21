@@ -23,8 +23,23 @@ public class ParkingSpotModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+
+
     @Column(nullable = false, unique = true, length = 10)
     private String parkingSpotNumber;
+
+
+    @Column(nullable = false, unique = true, length = 7)
+    private String lincesePlateCar;
+
+    @Column(nullable = false, length = 70)
+    private String brandCar;
+
+    @Column(nullable = false, length = 70)
+    private String modelCar;
+
+    @Column(nullable = false, length = 70)
+    private String colorCar;
 
     @Column(nullable = false)
     private LocalDateTime registerDate;
@@ -37,11 +52,6 @@ public class ParkingSpotModel implements Serializable {
 
     @Column(nullable = false, length = 30)
     private String block;
-
-
-    @OneToOne
-    @JoinColumn(name = "modelcar_id")
-    private ModelCar modelCar;
 
 
 
