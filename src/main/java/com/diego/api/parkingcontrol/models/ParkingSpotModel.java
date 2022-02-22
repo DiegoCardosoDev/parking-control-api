@@ -20,14 +20,11 @@ public class ParkingSpotModel implements Serializable {
     private final  Long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
-
 
     @Column(nullable = false, unique = true, length = 10)
     private String parkingSpotNumber;
-
 
     @Column(nullable = false, unique = true, length = 7)
     private String lincesePlateCar;
