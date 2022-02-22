@@ -13,26 +13,20 @@ public class ParkingSpotDto {
 
     @NotBlank
     private String parkingSpotNumber;
-
     @NotBlank
     @Size(max = 7)
-    private String lincesePlateCar;
-
+    private String licensePlateCar;
     @NotBlank
     private String brandCar;
-
     @NotBlank
     private String modelCar;
-
     @NotBlank
     private String colorCar;
-
     @NotBlank
-    private String reponsabilityName;
-
+    private String responsibleName;
     @NotBlank
-    private String apartament;
-
+    private String apartment;
     @NotBlank
     private String block;
+
 }
