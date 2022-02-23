@@ -2,6 +2,7 @@ package com.diego.api.parkingcontrol.controller;
 
 
 import com.diego.api.parkingcontrol.dto.ParkingSpotDto;
+import com.diego.api.parkingcontrol.exeptions.ParkSpotExeption;
 import com.diego.api.parkingcontrol.models.ParkingSpotModel;
 import com.diego.api.parkingcontrol.services.ParkingSpotService;
 import lombok.AllArgsConstructor;
@@ -28,19 +29,27 @@ public class ParkingSpotController {
 
 
     @PostMapping
-    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto){
+    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) throws ParkSpotExeption{
 
+        try {
 
-        if(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use!");
+            if(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use!");
+            }
+            if(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body
+                        ("Conflict: Parking Spot already registered for this apartment/block!");
+            }
+            var parkingSpotModel = new ParkingSpotModel();
+            BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
+            parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
+            return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
+
+        }catch (ParkSpotExeption exeption){
+            exeption.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
         }
-        if(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this apartment/block!");
-        }
-        var parkingSpotModel = new ParkingSpotModel();
-        BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
-        parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
-        return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
     }
 
     /*IMPLEMENTAÇÃO DO METODO PARA DELETAR A VAGA*/
