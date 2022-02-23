@@ -4,15 +4,24 @@
   <img align="center" alt="Diego-Spring" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg">
  <div/>
    
+   ### TECNOLOGIAS USADAS:
+   * JAVA 17
+   * SPRING
+   * MAVEN
+   * H2 DATABASE
+   * MYSQL 
    
-
-* CRIAR BANCO
+   ### CLONE PROJECT
+   ```
+   git clone https://github.com/DiegoCardosoDev/parking-control-api.git
    
    ```
-   CREATE DATABASE PARKINGSPOT_BD;
-    ```
    
-
+   ### CRIAR BANCO
+   ```
+   CREATE DATABASE PARKINGSPOT_BD;
+   ```
+  
 ### ENDPOINT CREATE CAR
    * method POST: https://localhost:8080/parking-spot-car/create
    
@@ -42,6 +51,19 @@
     }
 }
 ```
-* GET- method LISTAR TODOS : https://localhost:8080/parking-spot/list-all
-* GET method procurar por ID GET: https://localhost:8080/parking-spot/list-all/1 
-* DELETE method DELETAR POR ID : https://localhost:8080/parking-spot/list-all
+* GET- method LISTAR TODOS :
+   ```
+    https://localhost:8080/parking-spot/list-all
+   ```
+* GET- method ATUALIZAR : 
+   ```
+   https://localhost:8080/parking-spot/update/1
+   ```
+* GET method procurar por ID:
+   ```
+   https://localhost:8080/parking-spot/search/1
+   ```
+* DELETE method DELETAR POR ID :
+   ```
+   https://localhost:8080/parking-spot/delete/1
+   ```
