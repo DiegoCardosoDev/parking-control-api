@@ -18,7 +18,7 @@ public class CarModelController {
 
     private final CarModelService carModelService;
 
-    @PostMapping
+    @PostMapping(value = "create")
     public ResponseEntity<Object> saveCar(@RequestBody CarModel carModel){
 
         if(carModelService.existsByLicensePlateCar(carModel.getLicensePlateCar())){
