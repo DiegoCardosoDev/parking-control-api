@@ -4,15 +4,11 @@ package com.diego.api.parkingcontrol.services;
 import com.diego.api.parkingcontrol.models.ParkingSpotModel;
 import com.diego.api.parkingcontrol.repositories.ParkingSpotRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.awt.print.Pageable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -31,16 +27,10 @@ public class ParkingSpotService {
     }
 
     /*METODO PARA LISTAR TODOS*/
-    public Page<ParkingSpotModel> findAll(Pageable pageable) {
-        return parkingSpotRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+    public List<ParkingSpotModel> findAll() {
+        return parkingSpotRepository.findAll();
     }
 
-
-
-    /*METODO PARA VERIFICAR A LICENÇA*/
-    public boolean existsByLicensePlateCar(String licensePlateCar) {
-        return parkingSpotRepository.existsByLicensePlateCar(licensePlateCar);
-    }
 
     /*METODO PARA VERIFICAR O NUMERO DA VAGA, SE JÁ EXITE*/
     public boolean existsByParkingSpotNumber(String parkingSpotNumber) {
@@ -60,7 +50,7 @@ public class ParkingSpotService {
     }
 
     /*METODO PARA PROCURAR POR ID*/
-    public Optional<ParkingSpotModel> findById(UUID id) {
+    public Optional<ParkingSpotModel> findById(Long id) {
         return parkingSpotRepository.findById(id);
     }
 

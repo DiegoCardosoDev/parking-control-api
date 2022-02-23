@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -25,21 +25,18 @@ public class ParkingSpotController {
     final ParkingSpotService parkingSpotService;
 
     /*IMPLEMENTAÇÃO DO METODO CRIAR UMA VAGA*/
+
+
     @PostMapping
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto){
-        /*VERIFICAOES ANTES DE SALVAR*/
 
-        if(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use!");
-        }
+
         if(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use!");
         }
         if(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).
-                    body("Conflict: Parking Spot already registered for this apartment/block!");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this apartment/block!");
         }
-        /*SALVAR E CONVERTER O DTO PARA A MODEL*/
         var parkingSpotModel = new ParkingSpotModel();
         BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
@@ -48,7 +45,7 @@ public class ParkingSpotController {
 
     /*IMPLEMENTAÇÃO DO METODO PARA DELETAR A VAGA*/
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") Long id){
 
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
 
@@ -61,7 +58,7 @@ public class ParkingSpotController {
 
     /*IMPLEMENTAÇÃO DO METODO PARA ATUALIZAR A VAGA*/
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") UUID id,
+    public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") Long id,
                                                     @RequestBody @Valid ParkingSpotDto parkingSpotDto){
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
         if (!parkingSpotModelOptional.isPresent()) {
@@ -74,6 +71,11 @@ public class ParkingSpotController {
         parkingSpotModel.setId(parkingSpotModelOptional.get().getId());
         parkingSpotModel.setRegistrationDate(parkingSpotModelOptional.get().getRegistrationDate());
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ParkingSpotModel>> getAllParkingSpots(){
+        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll());
     }
 
 
