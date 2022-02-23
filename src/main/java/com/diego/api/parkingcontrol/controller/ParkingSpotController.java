@@ -26,6 +26,8 @@ import java.util.Optional;
 @RequestMapping("/parking-spot")
 public class ParkingSpotController {
 
+    public static final String ID = "/{id}";
+
     /*INJEÇAO DO SERVICE*/
     final ParkingSpotService parkingSpotService;
     final CarModelService carModelService;
@@ -58,7 +60,7 @@ public class ParkingSpotController {
     }
 
     /*IMPLEMENTAÇÃO DO METODO PARA PROCURAR POR ID*/
-    @GetMapping( "/{id}")
+    @GetMapping(value = ID)
     public ResponseEntity<Object> getParkingSpotId(@PathVariable (value = "id")Long id){
 
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
@@ -73,7 +75,7 @@ public class ParkingSpotController {
     }
 
     /*IMPLEMENTAÇÃO DO METODO PARA DELETAR A VAGA*/
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = ID)
     public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") Long id){
 
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
@@ -88,7 +90,7 @@ public class ParkingSpotController {
     }
 
     /*IMPLEMENTAÇÃO DO METODO PARA ATUALIZAR A VAGA*/
-    @PutMapping("/{id}")
+    @PutMapping(value = ID)
     public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") Long id,
                                                     @RequestBody @Valid ParkingSpotDto parkingSpotDto){
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
