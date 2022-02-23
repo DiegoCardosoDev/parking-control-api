@@ -26,10 +26,8 @@ public class ParkingSpotController {
     final ParkingSpotService parkingSpotService;
 
     /*IMPLEMENTAÇÃO DO METODO CRIAR UMA VAGA*/
-
-
     @PostMapping(value = "create")
-    public ResponseEntity<String> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) throws ParkSpotExeption{
+    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) throws ParkSpotExeption{
 
         try {
 
@@ -59,7 +57,7 @@ public class ParkingSpotController {
 
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
 
-        if (!parkingSpotModelOptional.isPresent()) {
+        if (parkingSpotModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
         }
         parkingSpotService.delete(parkingSpotModelOptional.get());
@@ -71,7 +69,7 @@ public class ParkingSpotController {
     public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") Long id,
                                                     @RequestBody @Valid ParkingSpotDto parkingSpotDto){
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
-        if (!parkingSpotModelOptional.isPresent()) {
+        if (parkingSpotModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
         }
 
