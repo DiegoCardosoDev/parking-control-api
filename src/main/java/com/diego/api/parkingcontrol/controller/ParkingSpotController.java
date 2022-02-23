@@ -28,8 +28,8 @@ public class ParkingSpotController {
     /*IMPLEMENTAÇÃO DO METODO CRIAR UMA VAGA*/
 
 
-    @PostMapping
-    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) throws ParkSpotExeption{
+    @PostMapping(value = "create")
+    public ResponseEntity<String> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) throws ParkSpotExeption{
 
         try {
 
@@ -43,7 +43,8 @@ public class ParkingSpotController {
             var parkingSpotModel = new ParkingSpotModel();
             BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
             parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
-            return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
+            parkingSpotService.save(parkingSpotModel);
+            return ResponseEntity.status(HttpStatus.CREATED).body("PARKINGSPOT CREATED SUCCESS!");
 
         }catch (ParkSpotExeption exeption){
             exeption.printStackTrace();
@@ -82,7 +83,7 @@ public class ParkingSpotController {
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
     }
 
-    @GetMapping
+    @GetMapping(value = "list-all")
     public ResponseEntity<List<ParkingSpotModel>> getAllParkingSpots(){
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll());
     }
