@@ -1,7 +1,6 @@
 package com.diego.api.parkingcontrol.services;
 
 import com.diego.api.parkingcontrol.models.CarModel;
-import com.diego.api.parkingcontrol.models.ParkingSpotModel;
 import com.diego.api.parkingcontrol.repositories.CarModelRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
