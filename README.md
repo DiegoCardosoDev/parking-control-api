@@ -20,22 +20,16 @@
   * [MYSQL ](  https://www.mysql.com/downloads/)
   * [POSTMAN PARA REQUISIÇÕES HTTP ](https://www.postman.com/downloads/)
    
-   ### CLONE PROJECT
+### CLONE PROJECT
    ```
    git clone https://github.com/DiegoCardosoDev/parking-control-api.git
    
-   ```
-   
-   ### CRIAR BANCO
-   ```
-   CREATE DATABASE PARKINGSPOT_BD;
-   USE PARKING_CAR_DB;
    ```
   
 ### ENDPOINT CREATE CAR
    * method POST: 
    ```
-      https://localhost:8080/parking-spot-car/create
+      https://localhost:8080/parking-spot-car
    ```
    
    * JSON FORMAT:
@@ -74,15 +68,20 @@
    ```
 * GET method procurar por ID:
    ```
-   https://localhost:8080/parking-spot/search/1
+   https://localhost:8080/parking-spot/1
    ```
 * DELETE method DELETAR POR ID :
    ```
-   https://localhost:8080/parking-spot/delete/1
+   https://localhost:8080/parking-spot/1
    ```
 
+### CRIAR BANCO
+   ```
+   CREATE DATABASE PARKINGSPOT_BD;
+   USE PARKING_CAR_DB;
+   ```
    
-  ### BONUS SQL PARA POPULAR O BANCO (MYSQL)
+  ### SQL PARA POPULAR O BANCO (MYSQL)
    
    ```
      --CARS INSERTS
