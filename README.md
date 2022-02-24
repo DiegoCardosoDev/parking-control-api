@@ -1,10 +1,17 @@
 # parking-control-api
-
 <div>
    <img align="center" alt="Diego-Java" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg">
    <img align="center" alt="Diego-Spring" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg">
  <div/>
-  
+
+#### A aplicação tem como objetivo Associar vagas de estacionamento de um condomío ao carro cadastrado no sistema.
+##### REGRAS DE NEGÓCIO
+* Uma vaga pode ter um carro somente, e um apartamento śo pode ter uma vaga de estacionamento.
+* Caso a vaga ja esteja sendo uasada o sistema impedirá o cadastro,
+* o sistema também impedirá o cadastro na existência do apartamento e carro.
+* para cadsatro da vaga é preciso informar o carro (ID).
+* para ter uma vaga o usuário precisa ter um carro.
+ 
    ### TECNOLOGIAS USADAS:
   * [JAVA 17](https://www.azul.com/downloads/)  
   * [SPRING](https://start.spring.io/)
@@ -22,6 +29,7 @@
    ### CRIAR BANCO
    ```
    CREATE DATABASE PARKINGSPOT_BD;
+   USE PARKING_CAR_DB;
    ```
   
 ### ENDPOINT CREATE CAR
